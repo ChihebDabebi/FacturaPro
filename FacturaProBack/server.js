@@ -15,7 +15,7 @@ const {searchAvailableBooks} = require('./services/book');
 const app = express();
 const server = http.createServer(app);
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: process.env.FRONT_URL,
   credentials: true 
 }));
 const userRouter = require('./routers/userRouter');
