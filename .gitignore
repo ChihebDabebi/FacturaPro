@@ -1,0 +1,8 @@
+FacturaProBack/.env
+FacturaProBack/.env.local
+FacturaProBack/.env.*.local
+FacturaProBack/node_modules/
+FacturaProFront/node_modules/
+FacturaProFront/.env
+FacturaProFront/.env.local
+FacturaProFront/.env.*.local
