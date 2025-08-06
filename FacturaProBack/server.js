@@ -15,7 +15,7 @@ const {searchAvailableBooks} = require('./services/book');
 const app = express();
 const server = http.createServer(app);
 app.use(cors({
-  origin: "factura-pro-byxm.vercel.app",
+  origin: "https://factura-pro-byxm.vercel.app",
   credentials: true 
 }));
 app.options('*', cors());
