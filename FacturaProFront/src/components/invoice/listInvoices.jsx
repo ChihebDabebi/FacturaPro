@@ -47,7 +47,7 @@ const ListInvoices = () => {
                 });
 
         } else {
-            api.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/invoice/client/${user_id}`, {
+            api.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/invoice/client/${user._id}`, {
                 params: filters,
                 headers: {
                     Authorization: `Bearer ${token}`
