@@ -7,7 +7,7 @@ exports.createInvoice = async (req, res) => {
     const year = now.getFullYear().toString().slice(2);
     const month = (now.getMonth() + 1).toString();
     const day = now.getDate().toString();
-    
+
 
 
     const min = now.getMinutes().toString();
@@ -63,13 +63,13 @@ exports.getInvoiceById = async (req, res) => {
 
 exports.getInvoicesByClientId = async (req, res) => {
   try {
-    const {dateEcheance , statut , totalTTC} = req.query;
+    const { dateEcheance, statut, totalTTC } = req.query;
     let query = {}
-    if(dateEcheance) query.dateEcheance = {$eq: new Date(dateEcheance)};
-    if(statut) query.statut = statut;
-    if(totalTTC) query.totalTTC = {$eq: parseFloat(totalTTC)};
+    if (dateEcheance) query.dateEcheance = { $eq: new Date(dateEcheance) };
+    if (statut) query.statut = statut;
+    if (totalTTC) query.totalTTC = { $eq: parseFloat(totalTTC) };
     const clientId = req.params.clientId;
-    const invoices = await Invoice.find({ clientId, ...query }).populate('clientId');
+    const invoices = await Invoice.find({ clientId, ...query, statut: { $ne: 'brouillon' } }).populate('clientId');
 
     res.status(200).json(invoices);
   } catch (error) {
