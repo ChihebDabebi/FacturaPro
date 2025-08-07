@@ -22,7 +22,7 @@ const AddInvoice = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/`, { params: { role: "client" } },, {
+    api.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/`, { params: { role: "client" } }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
