@@ -22,11 +22,10 @@ const AddInvoice = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/`, { params: { role: "client" } }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
+    api.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/`, {
+      params: { role: "client" },
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(res => setClients(res.data))
       .catch(err => console.error("Erreur chargement clients:", err));
   }, []);
