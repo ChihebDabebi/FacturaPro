@@ -90,6 +90,7 @@ const invoice = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  signature: signatureSchema
 
 });
 
