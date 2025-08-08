@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const {Invoice} = require('../models/invoice');
-const {User} = require('../models/user');
+const { Invoice } = require('../models/invoice');
+const { User } = require('../models/user');
 
 router.get('/clients', async (req, res) => {
   try {
@@ -17,7 +17,12 @@ router.get('/invoices', async (req, res) => {
   try {
     const invoices = await Invoice.find();
     const totalInvoices = invoices.length;
-    const totalRevenue = invoices.reduce((acc, inv) => acc + (inv.totalTTC || 0), 0);
+    const totalRevenue = invoices.reduce((acc, inv) => {
+      if (inv.statut === 'payée') {
+        return acc + (inv.totalTTC || 0);
+      }
+      return acc;
+    }, 0);
     const paidCount = invoices.filter(inv => inv.statut === 'payée').length;
     const paidPercentage = totalInvoices > 0 ? ((paidCount / totalInvoices) * 100).toFixed(2) : 0;
 
