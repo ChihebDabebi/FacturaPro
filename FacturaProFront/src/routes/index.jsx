@@ -10,6 +10,7 @@ import ListInvoicesByClient from '../components/invoice/listInvoicesByClient';
 import UpdateClient from '../components/user/updateClient';
 import ClientStats from '../views/dashboard/DashSales/indexClient';
 import Unauthorized from '../components/unauthorized';
+import SignaturePad from '../components/signaturePad';
 
 // Lazy-loaded components
 const DashboardSales = lazy(() => import('../views/dashboard/DashSales/index'));
@@ -166,6 +167,14 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<div>Loading...</div>}>
                 <Unauthorized />
+              </Suspense>
+            )
+          },
+           {
+            path: 'signature',
+            element: (
+              <Suspense fallback={<div>Loading...</div>}>
+                <SignaturePad />
               </Suspense>
             )
           },
