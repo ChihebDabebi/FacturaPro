@@ -16,7 +16,7 @@ router.get('/clients', async (req, res) => {
 router.get('/invoices', async (req, res) => {
   try {
     const invoices = await Invoice.find();
-    const totalInvoices = invoices.length;
+    const totalInvoices = invoices.filter(inv => inv.statut !== 'brouillon').length;
     const totalRevenue = invoices.reduce((acc, inv) => {
       if (inv.statut === 'payée') {
         return acc + (inv.totalTTC || 0);
@@ -39,9 +39,10 @@ router.get('/invoices/monthly', async (req, res) => {
     const monthlyTotals = {};
 
     invoices.forEach(inv => {
-      const month = new Date(inv.dateEmission).toLocaleString('default', { month: 'short', year: 'numeric' });
+      if (inv.statut !== 'brouillon')
+      {const month = new Date(inv.dateEmission).toLocaleString('default', { month: 'short', year: 'numeric' });
       if (!monthlyTotals[month]) monthlyTotals[month] = 0;
-      monthlyTotals[month] += inv.totalTTC || 0;
+      monthlyTotals[month] += inv.totalTTC || 0;}
     });
 
     const labels = Object.keys(monthlyTotals);
@@ -56,7 +57,7 @@ router.get('/:clientId', async (req, res) => {
   const { clientId } = req.params;
 
   try {
-    const invoices = await Invoice.find({ clientId });
+    const invoices = await Invoice.find({ clientId , statut: { $ne: 'brouillon' }});
 
     const totalInvoices = invoices.length;
     const paidInvoices = invoices.filter(inv => inv.statut === 'payée');
